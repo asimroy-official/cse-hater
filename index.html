@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171416">
+  <meta name="description" content="A darkly silly CSE classroom arcade game. Annoy the teacher. Survive six chambers.">
+  <title>CSE Hater: Six Chambers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="game-shell" id="game-shell">
+    <section class="title-screen screen is-active" id="title-screen" aria-labelledby="title-heading">
+      <div class="title-grain" aria-hidden="true"></div>
+      <div class="title-topline"><span>AN AFTER-CLASS ARCADE INCIDENT</span><span>EST. 11:59 PM</span></div>
+      <div class="title-copy">
+        <p class="eyebrow"><span class="status-dot"></span> FINAL EXAM: UNAUTHORIZED</p>
+        <h1 id="title-heading">CSE <span>HATER</span></h1>
+        <p class="title-subtitle">SIX <span>CHAMBERS</span></p>
+        <p class="title-description">You survived the course.<br>Now survive the teacher.</p>
+        <div class="title-actions">
+          <button class="button button-primary" id="play-button" type="button">PLAY <span aria-hidden="true">↗</span></button>
+          <button class="button button-quiet" id="how-button" type="button">HOW TO PLAY</button>
+        </div>
+      </div>
+      <div class="title-stamp" aria-hidden="true"><span>NO</span><span>EXCUSES</span><span>DEADLINE</span></div>
+      <div class="title-footer"><span>PRESS PLAY TO BEGIN</span><span>THE SYLLABUS WILL NOT BE MISSED</span></div>
+    </section>
+
+    <section class="classroom-screen screen" id="classroom-screen" aria-label="Classroom interaction">
+      <div class="classroom-vignette" aria-hidden="true"></div>
+      <header class="game-header">
+        <a class="wordmark" href="#" id="home-link" aria-label="Return to title">CSE <b>HATER</b><i> / 06</i></a>
+        <div class="rage-display" aria-live="polite">
+          <div class="rage-heading"><span>TEACHER'S STACK OVERFLOW</span><strong id="rage-state">NORMAL</strong></div>
+          <div class="rage-track" id="rage-track" role="progressbar" aria-label="Teacher's Stack Overflow" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="rage-fill"></span></div>
+        </div>
+        <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Mute audio" title="Mute audio"><span aria-hidden="true">♫</span></button>
+      </header>
+
+      <div class="classroom-stage" id="classroom-stage">
+        <div class="scene-caption"><span class="live-dot"></span><span id="scene-label">ROOM 204 · OFFICE HOURS</span></div>
+        <div class="desk-props" aria-hidden="true">
+          <img class="keyboard-prop" src="resources/keyboard.png" alt="">
+          <img class="coffee-prop" id="coffee-prop" src="resources/coffee-cup.png" alt="">
+          <div class="code-paper" id="code-paper" aria-hidden="true"><span>for(int i=0; i&lt;999999; i++)</span><span>printf("I hate CSE\\n");</span></div>
+        </div>
+        <div class="teacher-wrap" id="teacher-wrap" aria-label="The CSE teacher">
+          <img class="teacher-expression is-visible" data-expression="neutral" src="resources/neutral.png" alt="CSE teacher looking neutral">
+          <img class="teacher-expression" data-expression="annoyed" src="resources/annoyed.png" alt="CSE teacher looking annoyed">
+          <img class="teacher-expression" data-expression="angry" src="resources/angry.png" alt="CSE teacher looking angry">
+          <img class="teacher-expression" data-expression="scared" src="resources/scared.png" alt="CSE teacher looking scared">
+          <img class="teacher-expression" data-expression="shocked" src="resources/shocked.png" alt="CSE teacher looking shocked">
+          <img class="teacher-expression" data-expression="smug" src="resources/smug.png" alt="CSE teacher looking smug">
+        </div>
+        <div class="error-cascade" id="error-cascade" aria-hidden="true"><span>ERROR</span><span>ERROR</span><span>ERROR</span><span>ERROR</span></div>
+        <div class="dialogue-panel" id="dialogue-panel" aria-live="polite" aria-atomic="true">
+          <div class="speaker-label"><span class="speaker-mark">T</span><span id="speaker-name">THE TEACHER</span><span class="dialogue-index" id="dialogue-index">01</span></div>
+          <p id="dialogue-text">The assignment was due yesterday. You did submit it, right?</p>
+        </div>
+        <div class="code-ghost" id="code-ghost" aria-hidden="true">DELETE SUCCESSFUL <b>UNDO UNAVAILABLE</b></div>
+      </div>
+
+      <nav class="interaction-dock" id="interaction-dock" aria-label="Annoy the teacher">
+        <button class="action-button" data-action="tap" type="button"><span class="action-icon" aria-hidden="true">⌁</span><span>TAP HEAD</span><kbd>1</kbd></button>
+        <button class="action-button" data-action="poke" type="button"><span class="action-icon" aria-hidden="true">↗</span><span>POKE</span><kbd>2</kbd></button>
+        <button class="action-button" data-action="throw" type="button"><span class="action-icon" aria-hidden="true">▱</span><span>THROW CODE</span><kbd>3</kbd></button>
+        <button class="action-button" data-action="coffee" type="button"><span class="action-icon" aria-hidden="true">◉</span><span>STEAL COFFEE</span><kbd>4</kbd></button>
+        <button class="action-button" data-action="shake" type="button"><span class="action-icon" aria-hidden="true">↔</span><span>SHAKE TABLE</span><kbd>5</kbd></button>
+        <button class="action-button" data-action="delete" type="button"><span class="action-icon" aria-hidden="true">⌫</span><span>DELETE HIS CODE</span><kbd>6</kbd></button>
+        <button class="action-button action-hate" data-action="hate" type="button"><span class="action-icon" aria-hidden="true">!</span><span>I HATE CSE</span><kbd>7</kbd></button>
+      </nav>
+    </section>
+
+    <section class="roulette-screen screen" id="roulette-screen" aria-label="Six Chambers roulette">
+      <div class="roulette-backdrop" aria-hidden="true"></div>
+      <header class="game-header roulette-header">
+        <a class="wordmark" href="#" aria-hidden="true">CSE <b>HATER</b><i> / 06</i></a>
+        <div class="round-label"><span>FINAL EXAM</span><b>SIX CHAMBERS</b></div>
+        <div class="chamber-count"><span id="chamber-count">01</span><small> / 06</small></div>
+      </header>
+      <div class="roulette-layout" id="roulette-layout">
+        <div class="roulette-teacher" id="roulette-teacher">
+          <div class="roulette-teacher-copy"><span class="micro-label" id="turn-label">YOUR TURN</span><p id="roulette-dialogue" aria-live="polite">One spin. One pull. Let's see how your luck holds.</p></div>
+          <div class="roulette-portrait"><img data-roulette-expression src="resources/neutral.png" alt="The CSE teacher"></div>
+        </div>
+        <div class="roulette-mechanism">
+          <div class="wheel-frame" aria-label="Six chamber cylinder">
+            <div class="wheel-center"><span>CYLINDER</span><b>06</b></div>
+            <ol class="chamber-wheel" id="chamber-wheel" aria-label="Six chambers">
+              <li class="chamber" data-chamber="0" style="--i:0"><span>01</span></li>
+              <li class="chamber" data-chamber="1" style="--i:1"><span>02</span></li>
+              <li class="chamber" data-chamber="2" style="--i:2"><span>03</span></li>
+              <li class="chamber" data-chamber="3" style="--i:3"><span>04</span></li>
+              <li class="chamber" data-chamber="4" style="--i:4"><span>05</span></li>
+              <li class="chamber" data-chamber="5" style="--i:5"><span>06</span></li>
+            </ol>
+            <span class="wheel-pointer" aria-hidden="true">▼</span>
+          </div>
+          <img class="revolver-art" id="revolver-art" src="resources/revolver.png" alt="Stylized revolver with a six-chamber cylinder">
+          <div class="mechanism-caption"><span class="caption-line"></span><span>ONE CYLINDER · SIX CHAMBERS</span><span class="caption-line"></span></div>
+        </div>
+        <div class="roulette-controls">
+          <div class="turn-indicator"><span class="live-dot"></span><span id="turn-copy">PLAYER TURN</span><span class="turn-round" id="turn-round">ROUND 01</span></div>
+          <div class="roulette-buttons">
+            <button class="button button-secondary" id="spin-button" type="button"><span aria-hidden="true">⟳</span> SPIN CYLINDER</button>
+            <button class="button button-primary" id="trigger-button" type="button" disabled><span aria-hidden="true">◎</span> PULL TRIGGER</button>
+          </div>
+          <p class="control-hint" id="control-hint">Spin the cylinder to begin.</p>
+        </div>
+      </div>
+      <img class="final-paper" src="resources/paper.png" alt="" aria-hidden="true">
+      <img class="roulette-coffee" src="resources/coffee-cup.png" alt="" aria-hidden="true">
+      <div class="roulette-flash" id="roulette-flash" aria-hidden="true"></div>
+      <div class="smoke-layer" id="smoke-layer" aria-hidden="true"><i></i><i></i><i></i></div>
+    </section>
+
+    <section class="ending-screen screen" id="ending-screen" aria-labelledby="ending-heading">
+      <div class="ending-noise" aria-hidden="true"></div>
+      <div class="crash-window" id="crash-window">
+        <div class="window-bar"><span><i></i> TEACHER.EXE</span><span>×</span></div>
+        <div class="crash-content"><div class="crash-icon" aria-hidden="true">!</div><div><h2>CSE TEACHER.EXE HAS CRASHED</h2><p><b>Fatal Error:</b> CSE_HATER_WON</p><p>Teacher.exe encountered an unexpected amount of hatred.</p><small>Error Code: CSE-404</small></div></div>
+      </div>
+      <div class="ending-copy">
+        <p class="eyebrow"><span class="status-dot"></span> PROCESS TERMINATED</p>
+        <h1 id="ending-heading">MISSION<br><span>ACCOMPLISHED</span></h1>
+        <div class="scoreline"><span>CSE <b>0</b></span><i>:</i><span>YOU <b>1</b></span></div>
+        <p class="ending-message"><b>CONGRATULATIONS!</b><br>You survived CSE. You defeated the teacher.<br>And you still hate programming.</p>
+        <p class="ending-joke">Now go outside.<br>You have suffered enough.</p>
+        <p class="teacher-last-words">“I should have taught you something easier...<br>Like mathematics.”</p>
+        <div class="ending-actions"><button class="button button-primary" id="play-again-button" type="button">PLAY AGAIN <span aria-hidden="true">↻</span></button><button class="button button-quiet" id="annoy-again-button" type="button">ANNOY HIM AGAIN</button></div>
+      </div>
+      <div class="ending-teacher"><img src="resources/shocked.png" alt="The teacher is shocked"></div>
+    </section>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="modal-card" id="how-modal" role="dialog" aria-modal="true" aria-labelledby="how-title" hidden>
+        <button class="modal-close" data-close-modal type="button" aria-label="Close">×</button>
+        <p class="eyebrow">SURVIVAL GUIDE / 01</p><h2 id="how-title">HOW TO PLAY</h2>
+        <ol class="how-list"><li>Enter your name.</li><li>Annoy the CSE teacher.</li><li>Increase his rage.</li><li>When he has had enough, play SIX CHAMBERS.</li><li>Survive the chambers.</li><li>Watch the teacher.exe crash.</li></ol>
+        <p class="modal-note">Don't worry.<br><b>The game is rigged in your favor.</b></p>
+        <button class="button button-primary modal-submit" id="got-it-button" type="button">GOT IT <span aria-hidden="true">↗</span></button>
+      </section>
+      <section class="modal-card name-card" id="name-modal" role="dialog" aria-modal="true" aria-labelledby="name-title" hidden>
+        <p class="eyebrow">ATTENDANCE / REQUIRED</p><h2 id="name-title">BEFORE WE BEGIN...</h2>
+        <label for="player-name">What's your name?</label>
+        <input id="player-name" name="player-name" type="text" maxlength="24" autocomplete="given-name" placeholder="Enter your name...">
+        <button class="button button-primary modal-submit" id="start-button" type="button">START <span aria-hidden="true">↗</span></button>
+      </section>
+      <section class="modal-card viva-card" id="viva-modal" role="dialog" aria-modal="true" aria-labelledby="viva-title" hidden>
+        <p class="eyebrow">POP QUIZ / NO PARTIAL CREDIT</p><h2 id="viva-title">WHAT IS A POINTER?</h2>
+        <div class="viva-options"><button type="button" data-viva="I don't know.">I don't know.</button><button type="button" data-viva="It points.">It points.</button><button type="button" data-viva="Sir, please.">Sir, please.</button></div>
+      </section>
+    </div>
+    <div class="transition-curtain" id="transition-curtain" aria-hidden="true"><span>SIX CHAMBERS</span></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+</body>
+</html>
